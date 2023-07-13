@@ -30,28 +30,28 @@ var questions = [
     {
         question: "Arrays in JavaScript can be used to store:",
         answers: [
-            { text: "Strings", solution: false },
+            { text: "Numbers and strings", solution: false },
+            { text: "Other arrays", solution: false },
             { text: "Booleans", solution: false },
-            { text: "Alerts", solution: true },
-            { text: "Numbers", solution: false },
+            { text: "All of the above", solution: true },
         ]
     },
     {
-        question: "Commonly used data types DO NOT include:",
+        question: "When assigning a string to a variable, it must be enclosed within:",
         answers: [
-            { text: "Strings", solution: false },
-            { text: "Booleans", solution: false },
-            { text: "Alerts", solution: true },
-            { text: "Numbers", solution: false },
+            { text: "Commas", solution: false },
+            { text: "Curly brackets", solution: false },
+            { text: "Quotes", solution: true },
+            { text: "Parenthesis", solution: false },
         ]
     },
     {
-        question: "Commonly used data types DO NOT include:",
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
         answers: [
-            { text: "Strings", solution: false },
-            { text: "Booleans", solution: false },
-            { text: "Alerts", solution: true },
-            { text: "Numbers", solution: false },
+            { text: "JavaScript", solution: false },
+            { text: "Terminal/bash", solution: false },
+            { text: "For loops", solution: false },
+            { text: "Console.log", solution: true },
         ]
     },
 
