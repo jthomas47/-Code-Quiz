@@ -57,17 +57,32 @@ var questions = [
 
 ];
 
+
+// set timer
+function setTime() {
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timeEl.textContent = "Time: " + secondsLeft;
+
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            done();
+        }
+
+    }, 1000);
+}
+
+
 //display questions
 function getQuestion() {
     var currentQuestion = questions[questionIndex];
     questionEl.innerHTML = currentQuestion.question;
 
-    currentQuestion.answers.forEach(answers => {
+    for (var i = 0; i < currentQuestion.answers.length; i++) {
+        var answers = currentQuestion.answers[i];
         var button = document.createElement("button");
         button.innerHTML = answers.text;
         answerEl.appendChild(button);
-
-
         if (answers.solution) {
             button.dataset.solution = answers.solution;
         }
@@ -78,38 +93,16 @@ function getQuestion() {
             if (isCorrect) {
                 result.textContent = "Correct!";
                 score++;
-                // nextQuesiton();
             } else {
                 result.textContent = "Wrong!";
                 secondsLeft -= 10;
-                // nextQuesiton();
-            } 
+            }
             nextQuesiton();
         });
 
-    });
-}
-
-//reset old question
-function reset() {
-    while (answerEl.firstChild) {
-        answerEl.removeChild(answerEl.firstChild)
     }
 }
 
-//timer
-function setTime() {
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        timeEl.textContent = "Time: " + secondsLeft;
-
-        if (secondsLeft === 0) {
-            clearInterval(timerInterval);
-            done();
-        }
-
-    }, 1000);
-}
 
 //go to next question
 function nextQuesiton() {
@@ -122,18 +115,41 @@ function nextQuesiton() {
     }
 }
 
+
+//reset old question
+function reset() {
+    while (answerEl.firstChild) {
+        answerEl.removeChild(answerEl.firstChild)
+    }
+}
+
+
 //end quiz
 function done() {
     reset();
-    questionEl.innerHTML = "All Done"; 
+    timeEl.remove();
+    questionEl.innerHTML = "All Done";
+    result.textContent = "Your score is " + score + " out of " + questions.length;
+    // var initialsForm = document.createElement("form");
+    // var initialsInput = document.createElement("input");
+    // remove hidden class
+}
+
+
+// save score
+function saveScore() {
+    var saveNewScore = {
+        initials: initials.value,
+        score: score
+    };
+
+    localStorage.setItem("saveNewScore", JSON.stringify(saveNewScore));
 }
 
 // previous scores
 function previousScores() {
 
 }
-
-
 
 
 //start quiz
@@ -143,8 +159,6 @@ startBtn.addEventListener("click", function () {
     startBtn.style.display = "none";
     setTime();
     getQuestion();
-    
-
 });
 
 
