@@ -5,7 +5,7 @@ var answerEl = document.getElementById("answers");
 var result = document.querySelector(".result");
 
 
-var secondsLeft = 75;
+var secondsLeft = 50;
 var questionIndex = 0;
 var score = 0;
 var questions = [
@@ -78,15 +78,13 @@ function getQuestion() {
             if (isCorrect) {
                 result.textContent = "Correct!";
                 score++;
-                reset();
-                nextQuesiton();
+                // nextQuesiton();
             } else {
                 result.textContent = "Wrong!";
                 secondsLeft -= 10;
-                reset();
-                nextQuesiton();
-            }
-
+                // nextQuesiton();
+            } 
+            nextQuesiton();
         });
 
     });
@@ -107,6 +105,7 @@ function setTime() {
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
+            done();
         }
 
     }, 1000);
@@ -114,12 +113,25 @@ function setTime() {
 
 //go to next question
 function nextQuesiton() {
-    if (questionIndex < questions.length) {
+    if (questionIndex < questions.length - 1) {
         questionIndex++;
+        reset();
+        getQuestion();
+    } else {
+        done();
     }
-    getQuestion();
 }
 
+//end quiz
+function done() {
+    reset();
+    questionEl.innerHTML = "All Done"; 
+}
+
+// previous scores
+function previousScores() {
+
+}
 
 
 
@@ -129,8 +141,9 @@ startBtn.addEventListener("click", function () {
     questionIndex = 0;
     score = 0;
     startBtn.style.display = "none";
-    getQuestion();
     setTime();
+    getQuestion();
+    
 
 });
 
